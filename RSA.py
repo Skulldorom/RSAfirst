@@ -7,14 +7,14 @@ def gcd(a,b):
         return gcd(b,a%b)
 
 class RSA():
-  def __init__(self,low,high):
-    self.range=low,high 
+  def __init__(self, keylength):
+    self.range = keylength
     self.n,self.e,self.d,self.p,self.q,self.t = self.calc()
 
   def calc(self):
     while True:
-      p = prime(self.range[0],self.range[1]).get_prime()
-      q = prime(self.range[0],self.range[1]).get_prime()
+      p = prime(self.range).get_prime()
+      q = prime(self.range).get_prime()
       if p != q:
         break
 
@@ -28,7 +28,7 @@ class RSA():
     for i in range(1,10): 
         x = 1 + i*t 
         if x % e == 0: 
-            d = int(x/e)
+            d = x//e
             if d != e: 
               break
 
@@ -49,9 +49,13 @@ class RSA():
     print ('public is: (',self.e,',',self.n,')')
 
   def encrypt(self,text):
-    print(text,self.e,self.n)
-    return text**self.e % self.n
+    return pow(text,self.e,self.n)
 
-  def decrypt(self,text):
-    print(text,self.d,self.n)
-    return text**self.d % self.n
+  def decrypt(self,text):    
+    return pow(text,self.d,self.n)
+
+def string_to_number(text):
+  pass
+
+def number_to_string(numebr):
+  pass
